@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>АгроСервис</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="assets/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="manifest" href="assets/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="assets/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;0,900;1,400;1,700" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-size: cover;
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+      /* Убирает горизонтальный скролл */
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      height: 70px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+      display: inline-block;
+      border-radius: 100px;
+      background-color: #009C3D;
+      color: #fff;
+      font: 700 18px 'Raleway', sans-serif;
+      padding: 10px 20px;
+      margin: 0 10px;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .navbar a:hover {
+      background-color: #007E34;
+      transform: scale(1.05);
+    }
+
+    .image-section {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      background: url('assets/image_8ff21df0.jpeg') no-repeat center center;
+      background-size: cover;
+    }
+
+
+    .overlay-image {
+      position: absolute;
+      width: 700px;
+      /* Укажите нужную ширину */
+      height: auto;
+      /* Сохраняем пропорции */
+      z-index: 10;
+      /* Убедитесь, что картинка находится поверх других элементов */
+      top: 22%;
+      /* Позиционирование сверху */
+      left: 25%;
+      /* Позиционирование слева */
+      /* Или используйте right и bottom, если нужно позиционировать от правого или нижнего края */
+      transform: translate(-50%, -50%);
+      /* Центрирование относительно указанных top и left */
+    }
+
+    .bottom-menu {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      background-color: rgba(0, 156, 61, 0.8);
+      /* Темно-зеленый */
+      padding: 10px 50px;
+      border-radius: 100px;
+      gap: 50px;
+      margin-bottom: 40px;
+      font-family: 'Raleway', sans-serif;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .bottom-menu span {
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+
+
+
+    .main-section {
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 20px;
+
+      opacity: 0;
+      /* Скрываем секцию изначально */
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .main-section.visible {
+      opacity: 1;
+      /* Когда секция появляется, она становится видимой */
+    }
+
+    .container {
+      display: flex;
+      justify-content: flex-end;
+      /* Выравнивание содержимого по правому краю */
+      margin-bottom: 20px;
+      margin-top: auto;
+    }
+
+    .image-container {
+      flex: 1;
+      /* Занимает половину доступного пространства */
+      display: flex;
+      flex-direction: column;
+      /* Располагаем элементы вертикально */
+      align-items: center;
+      /* Выравнивание по центру по горизонтали */
+      justify-content: center;
+      /* Выравнивание по центру по вертикали */
+      gap: 20px;
+      /* Отступ между изображениями */
+      overflow: hidden;
+      /* Обрезаем изображение, если оно выходит за пределы */
+    }
+
+    .image-container img {
+      max-width: 50%;
+      /* Изображение не превышает ширину контейнера */
+      max-height: 50%;
+      /* Изображение не превышает высоту контейнера */
+      object-fit: contain;
+      /* Сохраняем пропорции изображения */
+      animation: rotate 5s linear infinite;
+    }
+
+    .image-container img:first-child {
+      border-radius: 150px;
+    }
+
+    .image-container img.no-rotate {
+      animation: none;
+      /* Отключаем анимацию вращения */
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .about {
+      flex: 1;
+      /* Занимает половину доступного пространства */
+      padding: 20px;
+      /* Внутренний отступ */
+      padding-right: 40px;
+      /* Отступ текста от правого края */
+      box-sizing: border-box;
+      /* Фон для наглядности */
+      overflow-y: auto;
+      /* Добавляем прокрутку, если контент превышает высоту */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about span {
+      color: rgba(0, 156, 61);
+      font: 700 24px 'Raleway', sans-serif;
+    }
+
+    .content-wrapper {
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 20px;
+      position: relative;
+      z-index: 1;
+      /* Контент будет выше видео */
+    }
+
+    .hero-text {
+      color: #000;
+      text-align: center;
+      font: 400 27px/55px 'Raleway', sans-serif;
+      margin-top: 50px;
+    }
+
+    .bold-orange {
+      font-weight: 700;
+      font-size: 37px;
+      color: #F29017;
+    }
+
+    .orange-text {
+      color: #F29017;
+    }
+
+    .text-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .gradient-background {
+      background: linear-gradient(to bottom, #FFFFFF, #FBDEB9);
+      /* Градиентный фон */
+      padding: 50px 0;
+      /* Отступ сверху и снизу */
+    }
+
+    .content-wrapper,
+    .categories-section {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .catalog-button {
+      border-radius: 100px;
+      background-color: #009C3D;
+      color: #fff;
+      font: 700 24px 'Raleway', sans-serif;
+      padding: 21px 30px;
+      margin-top: 80px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .catalog-button:hover {
+      background-color: #007E34;
+      transform: scale(1.05);
+    }
+
+    .partners-title {
+      color: #F29017;
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 10px;
+      font: 700 48px 'Raleway', sans-serif;
+      opacity: 0;
+      /* Скрываем секцию изначально */
+      transition: opacity 0.5s ease-in-out;
+
+    }
+
+    #about::before,
+    #partners::before,
+    #contact::before {
+      content: "";
+      /* Обязательное свойство для псевдоэлемента */
+      display: block;
+      height: 70px;
+      /* Высота меню */
+      margin-top: -70px;
+      /* Компенсируем отступ, чтобы не было лишнего пространства */
+      visibility: hidden;
+      /* Скрываем псевдоэлемент */
+    }
+
+    .partners-title.visible {
+      opacity: 1;
+      /* Когда секция появляется, она становится видимой */
+    }
+
+    .partners-table {
+      width: 60%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .partners-table td {
+      padding: 5px;
+      /* Уменьшение отступа между столбцами */
+      width: 50%;
+      /* Равномерное распределение ширины */
+    }
+
+    .partners-table2 {
+      width: 60%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      text-align: center;
+      margin-bottom: 100px;
+
+    }
+
+    .partners-table2 td {
+      padding: 5px;
+      /* Уменьшение отступа между столбцами */
+      width: 25%;
+      /* Равномерное распределение ширины */
+    }
+
+    .categories-section {
+      display: flex;
+      justify-content: center;
+      /* Центрирование по горизонтали */
+      align-items: center;
+      /* Центрирование по вертикали */
+      text-align: center;
+
+    }
+
+    .categories-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 150px;
+      /* Увеличиваем расстояние между столбцами */
+    }
+
+    .category-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      /* Задаем ширину колонок */
+      max-width: 800px;
+      /* Ограничиваем максимальную ширину */
+    }
+
+    .categories-section.visible {
+      opacity: 1;
+      /* Когда секция появляется, она становится видимой */
+    }
+
+    .category-title {
+      color: #F29017;
+      font-size: 36px;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .brand-list {
+      color: #000;
+      font-size: 32px;
+      margin-top: 0px;
+      line-height: 1.8;
+    }
+
+    .main-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      /*Видео будет находиться под контентом */
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      /* Чтобы элементы переносились на новую строку при малой ширине */
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .map-container {
+      flex: 0 0 auto;
+      /* Фиксированные размеры */
+      width: 650px;
+      height: 450px;
+      overflow: hidden;
+      border-radius: 50px;
+    }
+
+    .map-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    .info-container {
+      background: linear-gradient(rgba(249, 249, 249, 0.2), rgba(249, 249, 249, 0.2)),
+        url('assets/fontinfo.png') center/cover no-repeat;
+      border-radius: 50px;
+      height: 450px;
+      /* Высота равна карте */
+      width: 250px;
+      /* Немного меньше ширины карты */
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Центрируем текст и кнопку по вертикали */
+      align-items: center;
+      /* Центрируем текст и кнопку по горизонтали */
+      gap: 60px;
+      /* Пространство между текстом и кнопкой */
+      padding: 20px;
+      /* Внутренний отступ */
+    }
+
+    .address,
+    .contacts {
+      color: rgba(242, 144, 23, 1);
+      font: 600 18px 'Montserrat', sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      /* Убираем внешние отступы у текста */
+    }
+
+
+
+    .contact-button {
+      background-color: #009C3D;
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+    }
+
+    .contact-button:hover {
+      background-color: #007E34;
+      transform: scale(1.05);
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .footer {
+      bottom: 0;
+      width: 100%;
+      background: #009C3D;
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font: 600 14px 'Montserrat', sans-serif;
+      z-index: 100;
+    }
+
+    
+
+
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 60px 20px;
+      }
+
+      .partners-title {
+        font-size: 40px;
+      }
+
+      .category-title {
+        font-size: 30px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .categories-container {
+        flex-direction: column;
+      }
+
+      .category-column {
+        width: 100%;
+      }
+
+      .category-title {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <a href="#home">Главная</a>
+    <a href="#about">О компании</a>
+    <a href="ttml.html">Каталог</a>
+    <a href="#partners">Партнеры</a>
+    <a href="#contact">Контакты</a>
+  </div>
+
+  <div class="image-section" id="home">
+
+    <img src="assets/Логотип 1.png" class="overlay-image" alt="Дополнительная картинка" />
+    <div class="bottom-menu">
+      <span>С/Х ТЕХНИКА</span>
+      <span>ЗАПЧАСТИ</span>
+    </div>
+  </div>
+
+  <div class="o kompanii">
+    <h2 class="partners-title" id="about">О компании</h2>
+    <div class="container">
+      <div class="image-container">
+        <!-- Вставляем изображение как отдельный элемент -->
+        <img src="assets/вращать.jpg" alt="Описание изображения">
+        <img src="assets/textt.jpg" alt="Описание второго изображения" class="no-rotate">
+      </div>
+      <div class="about">
+
+        <span>Наша компания — надежный поставщик сельскохозяйственной техники, запчастей и комплектующих. Мы работаем с
+          ведущими мировыми и отечественными производителями, предлагая нашим клиентам только качественные и проверенные
+          решения для сельского хозяйства.
+          </br></br>
+          Наши направления деятельности:
+          </br>
+          </br>
+          — Продажа сельхозтехники
+          </br>
+          </br>
+          — Запчасти
+          </br></br>
+          — Строительно-монтажные работы
+          </br></br>
+          <i>АгроСервис — соединяем природу и технологии</i>
+          </spanp>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-section">
+    <!-- Видео на фоне -->
+    <video autoplay loop muted playsinline preload="auto" class="background-video">
+      <source src="assets/Kverneland-Hero-Video-hqh0448afo.mp4" type="video/mp4">
+      Ваш браузер не поддерживает видео тег.
+    </video>
+
+    <!-- Контент -->
+    <div class="content-wrapper">
+      <img src="assets/logo.png" style="max-width: 75%; height: auto;" />
+      <div class="hero-text">
+        <div class="text-container">
+          <span class="bold-orange">Kverneland</span>
+          <span class="orange-text">— один из самых известных производителей сельскохозяйственной техники в мире.
+            Продукция компании хорошо зарекомендовала себя на отечественном рынке, благодаря высокому уровню
+            надежности и идеальной приспособленностью под российские условия работы. В нашем каталоге Квернеланд вы
+            можете
+            ознакомиться с детальным описанием сельхозтехники.</span>
+        </div>
+      </div>
+      <a href="ttml.html" class="catalog-button">Каталог Kverneland</a>
+    </div>
+  </div>
+
+  <div class="gradient-background">
+    <h2 class="partners-title" id="partners">НАШИ ПАРТНЕРЫ</h2>
+    <h3 class="category-title">ТЕХНИКА</h3>
+    <img src="assets/logo.png"
+      style="display: block; margin: 0 auto; margin-top: 10px; margin-bottom: 50px; max-width: 45%; height: auto;" />
+    <table class="partners-table">
+      <tr>
+        <td>
+          <img src="assets/g24.svg" alt="Логотип 1" style="width: 100%; max-width: 360px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/agromash1.svg" alt="Логотип 2" style="width: 100%; max-width: 448px; height: auto;" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="assets/metal.svg" alt="Логотип 3" style="width: 100%; max-width: 428px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/tatag.svg" alt="Логотип 4" style="width: 100%; max-width: 436px; height: auto;" />
+        </td>
+      </tr>
+    </table>
+
+    <h3 class="category-title">ЗАПЧАСТИ</h3>
+    <table class="partners-table2">
+      <tr>
+        <td>
+          <img src="assets/logo.png" alt="Логотип 1" style="width: 100%; max-width: 252px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/NewHolland.png" alt="Логотип 2" style="width: 100%; max-width: 158px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/lemken.png" alt="Логотип 2" style="width: 100%; max-width: 259px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/challenger.png" alt="Логотип 2" style="width: 100%; max-width: 198px; height: auto;" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="assets/amazone.png" alt="Логотип 3" style="width: 100%; max-width: 351px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/case.png" alt="Логотип 4" style="width: 100%; max-width: 172px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/gregoire-besson.png" alt="Логотип 2" style="width: 100%; max-width: 300px; height: auto;" />
+        <td>
+          <img src="assets/claas.png" alt="Логотип 1" style="width: 100%; max-width: 243px; height: auto;" />
+        </td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="assets/johndeer.png" alt="Логотип 3" style="width: 100%; max-width: 100px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/laverda.png" alt="Логотип 4" style="width: 100%; max-width: 51px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/massey.png" alt="Логотип 2" style="width: 100%; max-width: 68px; height: auto;" />
+        </td>
+        <td>
+          <img src="assets/kuhn.png" alt="Логотип 2" style="width: 100%; max-width: 105px; height: auto;" />
+        </td>
+      </tr>
+    </table>
+
+    <div class="contact-section">
+      <h2 class="partners-title" id="contact">КОНТАКТЫ</h2>
+      <div class="contact-container">
+        <div class="map-container">
+          <img
+            src="https://static-maps.yandex.ru/1.x/?ll=65.706526,57.041524&z=10&size=650,450&l=map&pt=65.706526,57.041524,pm2rdl&apikey=7143c804-7c05-43ec-b2d5-dc660406a141"
+            alt="Статическая карта Яндекс" class="yandex-map">
+        </div>
+        <div class="info-container">
+          <p class="address">
+            Тюмень<br>
+            рп. Боровский<br>
+            ул. Набережная 55<br>
+            офис 212
+          </p>
+          <p class="contacts">
+            +7(953) 606-78-88<br>
+            +7(3452) 238-82-43<br>
+            info.agroservice@bk.ru<br>
+          </p>
+          <a href="https://wa.me/79957724479" target="_blank" class="contact-button">Связаться с нами</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>© 2025 ООО "АгроСервис"</span>
+  </div>
+
+  <script>
+    // Функция для добавления класса 'visible' при прокрутке
+    const sections = document.querySelectorAll('.main-section, .partners-title, .categories-section');
+
+    function onScroll() {
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    // Вешаем обработчик на прокрутку
+    window.addEventListener('scroll', onScroll);
+
+    // Вызовем функцию сразу, чтобы проверить видимость секций сразу при загрузке страницы
+    onScroll();
+  </script>
+</body>
+
+</html>

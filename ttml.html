@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .buttonup {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: #009C3D;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 0;
+            font-size: 26px;
+            font-weight: 100;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            text-align: center;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            line-height: 40px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .buttonup:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            height: 70px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            display: inline-block;
+            border-radius: 100px;
+            background-color: #009C3D;
+            color: #fff;
+            font: 700 18px 'Raleway', sans-serif;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #007E34;
+            transform: scale(1.05);
+        }
+
+        #press::before,
+        #oprys::before,
+        #razbras::before,
+        #valkoobr::before,
+        #mulch::before,
+        #voroshilki::before,
+        #plugi::before,
+        #seyalki::before,
+        #kosilki::before,
+        #pochva::before {
+            content: "";
+            /* Обязательное свойство для псевдоэлемента */
+            display: block;
+            height: 70px;
+            /* Высота меню */
+            margin-top: -70px;
+            /* Компенсируем отступ, чтобы не было лишнего пространства */
+            visibility: hidden;
+            /* Скрываем псевдоэлемент */
+        }
+
+
+        body {
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-image: url('assets/Main-image.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .image-section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .buttons {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .button {
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #ff9900;
+            transform: scale(1.05);
+        }
+
+        .catalog {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .section-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: #F29017;
+        }
+
+        .sub-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 36px;
+            font-weight: bold;
+            color: #009C3D;
+            margin-top: 30px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            width: 317px;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 211px;
+            border-radius: 25px;
+        }
+
+        .card h4 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 34px;
+            font-weight: bold;
+            color: black;
+            margin: 10px 0;
+        }
+
+        .card p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            color: #585858;
+        }
+
+        .footer {
+            bottom: 0;
+            width: 100%;
+            background: #009C3D;
+            color: #fff;
+            text-align: center;
+            padding: 10px 20px;
+            font: 600 14px 'Montserrat', sans-serif;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- кнопка наверх -->
+    <div class="buttonup" onclick="topFunction()" id="myBtn" title="Вернуться наверх">↑</div>
+    <!-- меню -->
+    <div class="navbar">
+        <a href="index.html">Главная</a>
+        <a href="index.html#about">О компании</a>
+        <a href="ttml.html">Каталог</a>
+        <a href="index.html#partners">Партнеры</a>
+        <a href="index.html#contact">Контакты</a>
+    </div>
+
+    <main>
+        <!-- кнопки категорий -->
+        <div class="buttons">
+            <a href="#press" class="button">Пресс-подборщики</a>
+            <a href="#oprys" class="button">Опрыскиватели</a>
+            <a href="#razbras" class="button">Разбрасыватели</a>
+            <a href="#valkoobr" class="button">Валкообразователи</a>
+            <a href="#mulch" class="button">Мульчировщики</a>
+            <a href="#voroshilki" class="button">Ворошилки</a>
+            <a href="#plugi" class="button">Плуги</a>
+            <a href="#seyalki" class="button">Сеялки</a>
+            <a href="#kosilki" class="button">Косилки</a>
+            <a href="#pochva" class="button">Почвообработка</a>
+        </div>
+    </main>
+    <!-- ПРЕСС-ПОДБОРЩИКИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="press">ПРЕСС-ПОДБОРЩИКИ</h2>
+
+        <h3 class="sub-title">С ФИКСИРОВАННОЙ КАМЕРОЙ</h3>
+        <div class="card-container">
+
+            <div class="card">
+                <img src="assets/6250.jpeg" alt="Kverneland 6250">
+                <h4>Kverneland 6250</h4>
+                <p>Пресс-подборщик с фиксированной камерой прессования RotaMax с диаметром рулона 1,25 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/6350 Plus.jpeg" alt="Kverneland 6350">
+                <h4>Kverneland 6350</h4>
+                <p>Вальцовая фиксированная камера прессования PowerMax с диаметром рулона 1,25 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/6500.jpeg" alt="Kverneland 6500F">
+                <h4>Kverneland 6500F</h4>
+                <p>Вальцовая фиксированная камера прессования PowerMax с диаметром рулона 1,25 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">С ИЗМЕНЯЕМОЙ КАМЕРОЙ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/6616.jpeg" alt="Kverneland 6616">
+                <h4>Kverneland 6616</h4>
+                <p>Пресс-подборщик с переменной камерой прессования с диаметром рулона
+                    от 0,8 м до 1,65 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/6618.jpeg" alt="Kverneland 6618">
+                <h4>Kverneland 6618</h4>
+                <p>Пресс-подборщик с переменной камерой прессования с диаметром рулона
+                    от 0,8 м до 1,75 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/6716.jpeg" alt="Kverneland 6716">
+                <h4>Kverneland 6716</h4>
+                <p>Пресс-подборщик с переменной камерой прессования с диаметром рулона
+                    от 0,6 м до 1,65 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/6720.jpeg" alt="Kverneland 6720">
+                <h4>Kverneland 6720</h4>
+                <p>Пресс-подборщик с изменяемой камерой прессования с диаметром рулона
+                    от 0,6 м до 2,00 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">КОМБИНАЦИЯ С ОБМОТЧИКОМ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/6716fw.jpeg" alt="Kverneland 6716 FW">
+                <h4>Kverneland 6716 FW</h4>
+                <p>Комбинация пресс-подборщик-обмотчик с концепцией прессования с переменной камерой и диаметром
+                    рулона
+                    от 0,60 до 1,65 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/6720fw.jpeg" alt="Kverneland 6720 FW">
+                <h4>Kverneland 6720 FW</h4>
+                <p>Комбинация пресс-подборщик и обмотчик с концепцией прессования с переменной камерой и диаметром
+                    рулона от 0,60 до 2,00 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/6500ffw.jpeg" alt="Kverneland 6500F FW ">
+                <h4>Kverneland 6500F FW </h4>
+                <p>Комбинация пресс-подборщика и обмотчика с фиксированной камерой и размером рулона от 1,23 до 1,25
+                    м
+                </p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">БЕЗОСТАНОВОЧНЫЙ ПРЕСС-ПОДБОРЩИК</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/fastbale.jpeg" alt="Kverneland FASTBALE">
+                <h4>Kverneland FASTBALE</h4>
+                <p>Комбинация пресс-подборщика и обмотчика с фиксированной камерой прессования без остановки</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОПРЫСКИВАТЕЛИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="oprys">ОПРЫСКИВАТЕЛИ</h2>
+
+        <h3 class="sub-title">НАВЕСНЫЕ ФРОНТАЛЬНЫЕ ОПРЫСКИВАТЕЛИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/ixtralife.jpeg" alt="Kverneland IXTRA life">
+                <h4>Kverneland IXTRA life</h4>
+                <p>Универсальный опрыскиватель Kverneland для рядного внесения всех видов жидкостей</p>
+            </div>
+            <div class="card">
+                <img src="assets/ixtra.jpeg" alt="Kverneland IXTRA">
+                <h4>Kverneland IXTRA</h4>
+                <p>фронтальный бак Kverneland iXtra Comfort или Pro предлагает объем 3000 литров, что делает
+                    комбинацию
+                    iXter-iXtra серьезной альтернативой самоходному опрыскивателю </p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">НАВЕСНЫЕ ОПРЫСКИВАТЕЛИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/ixterA.jpeg" alt="Kverneland IXTER A">
+                <h4>Kverneland IXTER A</h4>
+                <p>iXter A предлагает номинальный объем бака 800 л, 1000 л и 1200 л</p>
+            </div>
+            <div class="card">
+                <img src="assets/ixterB.jpeg" alt="Kverneland IXTER B">
+                <h4>Kverneland IXTER B</h4>
+                <p>Номинальный объем бака iXter B составляет от 1000 до 1800 л</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ПРИЦЕПНЫЕ ОПРЫСКИВАТЕЛИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/ixtrackT3.jpeg" alt="Kverneland IXTRACK T3">
+                <h4>Kverneland IXTRACK T3</h4>
+                <p>Номинальный объем бака iXtrack T3 составляет 2600 л и 3200 л</p>
+            </div>
+            <div class="card">
+                <img src="assets/ixtrackT4.jpeg" alt="Kverneland IXTRACK T4">
+                <h4>Kverneland IXTRACK T4</h4>
+                <p>Номинальный объем бака iXtrack T4 составляет от 3800 до 5300 л</p>
+            </div>
+            <div class="card">
+                <img src="assets/ixtrackT5.jpeg" alt="Kverneland IXTRACK T6">
+                <h4>Kverneland IXTRACK T6</h4>
+                <p>Номинальный объем бака iXtrack T6 составляет 6400 л и 7600 л</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- РАЗБРАСЫВАТЕЛИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="razbras">РАЗБРАСЫВАТЕЛИ</h2>
+
+        <h3 class="sub-title">ДИСКОВЫЕ РАЗБРАСЫВАТЕЛИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/el.jpeg" alt="Kverneland 
+                EXACTA EL">
+                <h4>Kverneland
+                    EXACTA EL</h4>
+                <p>Гидравлический привод - объем бункера 700-1400 л.</p>
+            </div>
+            <div class="card">
+                <img src="assets/cl.jpeg" alt="Kverneland 
+                EXACTA CL">
+                <h4>Kverneland
+                    EXACTA CL</h4>
+                <p>Гидравлический или электрический привод - объем бункера 1100-2000 л</p>
+            </div>
+            <div class="card">
+                <img src="assets/hl.jpeg" alt="Kverneland 
+                EXACTA HL">
+                <h4>Kverneland
+                    EXACTA HL</h4>
+                <p>Гидравлический или электрический привод - объем бункера 1500-3900 л</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/clew.jpeg" alt="Kverneland 
+                EXACTA CL EW">
+                <h4>Kverneland
+                    EXACTA CL EW</h4>
+                <p>Весовой разбрасыватель - вместимость бункера 1100-2000л</p>
+            </div>
+            <div class="card">
+                <img src="assets/tl.jpeg" alt="Kverneland 
+                EXACTA TL">
+                <h4>Kverneland
+                    EXACTA TL</h4>
+                <p>Разбрасыватель - объем бункера 1500-3900л</p>
+            </div>
+            <div class="card">
+                <img src="assets/clgeo.jpeg" alt="Kverneland 
+                EXACTA CL GEOSPREAD">
+                <h4>Kverneland
+                    EXACTA CL GEOSPREAD</h4>
+                <p>Разбрасыватель GEOSPREAD - вместимость бункера 1100-2800л</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/tlgeo.jpeg" alt="Kverneland 
+                EXACTA TL GEOSPREAD">
+                <h4>Kverneland
+                    EXACTA TL GEOSPREAD</h4>
+                <p>Разбрасыватель GEOSPREAD - вместимость бункера 1500-3900л</p>
+            </div>
+            <div class="card">
+                <img src="assets/tlxgeo.jpeg" alt="Kverneland 
+                EXACTA TLX GEOSPREAD">
+                <h4>Kverneland
+                    EXACTA TLX GEOSPREAD</h4>
+                <p>Высокоскоростной разбрасыватель GEOSPREAD - вместимость бункера 1500-3900л</p>
+            </div>
+            <div class="card">
+                <img src="assets/tlgeoidc.jpeg" alt="Kverneland 
+                EXACTA TL GEOSPREAD IDC">
+                <h4>Kverneland
+                    EXACTA TL GEOSPREAD IDC</h4>
+                <p>Разбрасыватель GEOSPREAD с iDC - объем бункера 1500-3900л</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВАЛКООБРАЗОВАТЕЛИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="valkoobr">ВАЛКООБРАЗОВАТЕЛИ</h2>
+
+        <h3 class="sub-title">ВАЛКООБРАЗОВАТЕЛЬ ДВУХРОТОРНЫЙ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/9464m.jpeg" alt="Kverneland 9464 M">
+                <h4>Kverneland 9464 M</h4>
+                <p>Навесные двухроторные валкообразователи CompactLine с шириной захвата 6,40 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9464c.jpeg" alt="Kverneland 9464 C">
+                <h4>Kverneland 9464 C</h4>
+                <p>Прицепные двухроторные валкообразователи с рабочей шириной 6,40 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9472chydro.jpeg" alt="Kverneland 9472 C
+                HYDRO">
+                <h4>Kverneland 9472 C
+                    HYDRO</h4>
+                <p>Двухроторные валкообразователи CompactLine с шириной захвата 7,2 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/9476c.jpeg" alt="Kverneland 9476 C">
+                <h4>Kverneland 9476 C</h4>
+                <p>Многороторные валкообразователи CompactLine с рабочей шириной 7,6 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9580c.jpeg" alt="Kverneland 9580 C">
+                <h4>Kverneland 9580 C</h4>
+                <p>Двухроторные валкообразователи ProLine для тяжелых условий работы
+                    с шириной захвата 8 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9584c.jpeg" alt="Kverneland 9584 C">
+                <h4>Kverneland 9584 C</h4>
+                <p>Мощные двухроторные валкообразователи ProLine
+                    с шириной захвата 8,4 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/9590chydro.jpeg" alt="Kverneland 9590 C
+                HYDRO">
+                <h4>Kverneland 9590 C
+                    HYDRO</h4>
+                <p>Высокопроизводительные двухроторные валкообразователи ProLine
+                    с рабочей шириной 9,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9471sevo.jpeg" alt="Kverneland 9471 S
+                EVO">
+                <h4>Kverneland 9471 S
+                    EVO</h4>
+                <p>Прицепные боковые валкообразователи CompactLine с шириной захвата 7,1 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9471svario.jpeg" alt="Kverneland 9471 S
+                VARIO">
+                <h4>Kverneland 9471 S
+                    VARIO</h4>
+                <p>Прицепные боковые валкообразователи CompactLine с шириной захвата 7,1 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/9670sevo.jpeg" alt="Kverneland 9670 S
+                EVO">
+                <h4>Kverneland 9670 S
+                    EVO</h4>
+                <p>Боковые валкообразователи ComapctLine с шириной захвата 6,65 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9670svario.jpeg" alt="Kverneland 9670 S
+                VARIO">
+                <h4>Kverneland 9670 S
+                    VARIO</h4>
+                <p>Боковые валкообразователи CompactLine с шириной захвата 6,65 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/9577s.jpeg" alt="Kverneland 9577 S">
+                <h4>Kverneland 9577 S</h4>
+                <p>Многороторные боковые валкообразователи ProLine
+                    с шириной захвата 7,7 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ВАЛКООБРАЗОВАТЕЛЬ ЧЕТЫРЕХРОТОРНЫЙ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/94125.jpeg" alt="Kverneland 94125 C
+                PLUS">
+                <h4>Kverneland 94125 C
+                    PLUS</h4>
+                <p>Четырехроторные валкообразователи CompactLine с шириной захвата 10,0-12,5 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/95130.jpeg" alt="Kverneland 95130 C
+                PLUS ">
+                <h4>Kverneland 95130 C
+                    PLUS </h4>
+                <p>Четырехроторные грабли ProLine с шириной захвата 10,0-12,5 м </p>
+            </div>
+            <div class="card">
+                <img src="assets/95130pro.jpeg" alt="Kverneland 95130 C
+                PRO">
+                <h4>Kverneland 95130 C
+                    PRO</h4>
+                <p>Четырехроторные валкообразователи ProLine с шириной захвата 10,0-12,5 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/97150.jpeg" alt="Kverneland 97150 C
+                PLUS">
+                <h4>Kverneland 97150 C
+                    PLUS</h4>
+                <p>Сверхмощная четырехроторная версия ProLine с полным управлением ISOBUS
+                    Валкобразователи ProLine для центрального валка с шириной захвата 9,8-15,0 м</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- МУЛЬЧИРОВЩИКИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="mylch">МУЛЬЧИРОВЩИКИ</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/FML.jpeg" alt="Kverneland FML">
+                <h4>Kverneland FML</h4>
+                <p>Специалист для зеленых зон</p>
+            </div>
+            <div class="card">
+                <img src="assets/FHS.jpeg" alt="Kverneland FHS">
+                <h4>Kverneland FHS</h4>
+                <p>Для тракторов мощностью до 80 л.с. - эффективная и долговечная</p>
+            </div>
+            <div class="card">
+                <img src="assets/FHP.jpeg" alt="Kverneland FHP">
+                <h4>Kverneland FHP</h4>
+                <p>Многоцелевой мульчировщик</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/FHPplus.jpeg" alt="Kverneland FHP
+                PLUS">
+                <h4>Kverneland FHP
+                    PLUS</h4>
+                <p>Многоцелевой мульчировщик с боковым поворотным креплением</p>
+            </div>
+            <div class="card">
+                <img src="assets/FRO.jpeg" alt="Kverneland FRO">
+                <h4>Kverneland FRO</h4>
+                <p>Многоцелевой - для измельчения травы, пастбищ, залежных земель и стерни</p>
+            </div>
+            <div class="card">
+                <img src="assets/FRH.jpeg" alt="Kverneland FRH">
+                <h4>Kverneland FRH</h4>
+                <p>Универсальный, полезный и надежный</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/FRD.jpeg" alt="Kverneland FRD">
+                <h4>Kverneland FRD</h4>
+                <p>Универсальная машина для передней и задней навески трактора</p>
+            </div>
+            <div class="card">
+                <img src="assets/FXE.jpeg" alt="Kverneland FXE">
+                <h4>Kverneland FXE</h4>
+                <p>Компактный, эффективный и универсальный</p>
+            </div>
+            <div class="card">
+                <img src="assets/FXN.jpeg" alt="Kverneland FXN">
+                <h4>Kverneland FXN</h4>
+                <p>Тяжелая конструкция для надежной работы</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/FXZ.jpeg" alt="Kverneland FXZ">
+                <h4>Kverneland FXZ</h4>
+                <p>Универсальный ротор для идеального измельчения в любых условиях</p>
+            </div>
+            <div class="card">
+                <img src="assets/FXF.jpeg" alt="Kverneland FXF">
+                <h4>Kverneland FXF</h4>
+                <p>Высокопроизводительный ротор для превосходного измельчения в любых условиях</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВОРОШИЛКИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="voroshilki">ВОРОШИЛКИ</h2>
+
+        <h3 class="sub-title">НАВЕСНЫЕ ВОРОШИЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/8446.jpeg" alt="Kverneland 8446">
+                <h4>Kverneland 8446</h4>
+                <p>Компактная ворошилка с низким уровнем технического обслуживания,
+                    с рабочей шириной 4,6 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/8555.jpeg" alt="Kverneland 8555">
+                <h4>Kverneland 8555</h4>
+                <p>Сверхмощная навесная ворошилка с компактными транспортными размерами,
+                    с шириной захвата 5,5 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/8568.jpeg" alt="Kverneland 8568">
+                <h4>Kverneland 8568</h4>
+                <p>Сверхмощная навесная ворошилка с компактными транспортными размерами,
+                    с шириной захвата 6,8 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/8576.jpeg" alt="Kverneland 8576">
+                <h4>Kverneland 8576</h4>
+                <p>Сверхмощная навесная ворошилка с компактными транспортными размерами,
+                    с шириной захвата 7,6 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/8590.jpeg" alt="Kverneland 8590">
+                <h4>Kverneland 8590</h4>
+                <p>Сверхмощная навесная ворошилка с компактными транспортными габаритами
+                    с шириной захвата 9,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/85112.jpeg" alt="Kverneland 85112">
+                <h4>Kverneland 85112</h4>
+                <p>Сверхмощная навесная ворошилка с компактными транспортными размерами
+                    с шириной захвата 11,2 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ПРИЦЕПНЫЕ ВОРОШИЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/8590c.jpeg" alt="Kverneland 8590 С">
+                <h4>Kverneland 8590 С</h4>
+                <p>Навесная сеноворошилка с транспортной ходовой частью,
+                    с шириной захвата 9,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/85112c.jpeg" alt="Kverneland 85112 С">
+                <h4>Kverneland 85112 С</h4>
+                <p>Навесная сеноворошилка с транспортной ходовой частью,
+                    с шириной захвата 11,2 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/85156c.jpeg" alt="Kverneland 85165 С">
+                <h4>Kverneland 85165С</h4>
+                <p>Прицепная сеноворошилка с транспортным шасси,
+                    с шириной захвата 15,6 м</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПЛУГИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="plugi">ПЛУГИ</h2>
+
+        <h3 class="sub-title">ЕСО ПЛУГИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/ecomat.jpeg" alt="Kverneland ECOMAT">
+                <h4>Kverneland ECOMAT</h4>
+                <p>Неглубокие операции. 5-8 корпусов. Auto-reset. Variomat.</p>
+            </div>
+            <div class="card">
+                <img src="assets/ecomatonland.jpeg" alt="Kverneland ECOMAT
+                ON-LAND">
+                <h4>Kverneland ECOMAT
+                    ON-LAND</h4>
+                <p>Неглубокие операции. 8/10 корпусов.Срезной болт. Пошагово.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ОБОРОТНЫЕ ПЛУГИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/150b.jpg_red" alt="Kverneland 150 B">
+                <h4>Kverneland 150 B</h4>
+                <p>Идеальный выбор для легких и средних почв без камней 3 - 5 корпусов</p>
+            </div>
+            <div class="card">
+                <img src="assets/150s.jpg_red" alt="Kverneland 150 S">
+                <h4>Kverneland 150 S</h4>
+                <p>Средние почвы. 3-5 корпусов. Auto-reset. Дополнительный вариомат.</p>
+            </div>
+            <div class="card">
+                <img src="assets/ld.jpg_red" alt="Kverneland LD">
+                <h4>Kverneland LD</h4>
+                <p>Средние и тяжелые почвы. 3-6 корпусов. Срезной болт. Пошагово.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/ed.jpg_red" alt="Kverneland ED">
+                <h4>Kverneland ED</h4>
+                <p>Средние и тяжелые почвы. 3-6 корпусов. Auto-reset. Пошаговая.</p>
+            </div>
+            <div class="card">
+                <img src="assets/lo.jpeg" alt="Kverneland LO">
+                <h4>Kverneland LO</h4>
+                <p>В борозде / На земле. 4-7 корпусов. Срезной болт. Variomat.</p>
+            </div>
+            <div class="card">
+                <img src="assets/rn.jpeg" alt="Kverneland RN">
+                <h4>Kverneland RN</h4>
+                <p>Полунавесной. Опционально on-land</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/pn.jpeg" alt="Kverneland PN">
+                <h4>Kverneland PN</h4>
+                <p>Полунавесной. Экономически эффективен, простой в настройке и обслуживании. "В борозде" и "Вне
+                    борозды", от 5 до 9 корпусов.</p>
+            </div>
+            <div class="card">
+                <img src="assets/rw.jpeg" alt="Kverneland RW">
+                <h4>Kverneland RW</h4>
+                <p>"3 плуга в одном" для высокопроизводительной вспашки. "В борозде" и "Вне борозды" Isobus и
+                    FURROWcontrol. Доступно от 7 до 12 корпусов.</p>
+            </div>
+            <div class="card">
+                <img src="assets/pw.jpeg" alt="Kverneland PW">
+                <h4>Kverneland PW</h4>
+                <p>Тележка с плугом. Дополнительно on-land Auto-reset. "В борозде" и "Вне борозды" Isobus и
+                    FURROWcontrol. Доступно от 7 до 12 корпусов.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">УПЛОТНИТЕЛИ ПОЧВЫ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/fp.jpeg" alt="Kverneland FP">
+                <h4>Kverneland FP</h4>
+                <p>Фронтальный каток. Кат. II. Производительность 3-6 метров.</p>
+            </div>
+            <div class="card">
+                <img src="assets/sp.jpeg" alt="Kverneland SP">
+                <h4>Kverneland SP</h4>
+                <p>Одиночный каток. Легкие и средние почвы.</p>
+            </div>
+            <div class="card">
+                <img src="assets/dp.jpeg" alt="Kverneland DP">
+                <h4>Kverneland DP</h4>
+                <p>Двойной каток. Кат. II. Подходит для различных почвенных условий.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/tp.jpeg" alt="Kverneland TP">
+                <h4>Kverneland TP</h4>
+                <p>Одиночный каток в сочетании
+                    с кольчато- шпоровым катком.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЕЯЛКИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="seyalki">СЕЯЛКИ</h2>
+
+        <h3 class="sub-title">ПНЕВМАТИЧЕСКИЕ ЗЕРНОВЫЕ СЕЯЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/satio.jpeg" alt="Kverneland SATIO">
+                <h4>Kverneland SATIO</h4>
+                <p>Компактная сеялка для агрегатирования с малыми и средними тракторами.</p>
+            </div>
+            <div class="card">
+                <img src="assets/satiof.jpeg" alt="Kverneland SATIO F">
+                <h4>Kverneland SATIO F</h4>
+                <p>Компактная складная одиночная сеялка с шириной захвата 5,0 м и 6,0 м.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">НАВЕСНЫЕ ПНЕВМАТИЧЕСКИЕ ЗЕРНОВЫЕ СЕЯЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/da.webp" alt="Kverneland DA">
+                <h4>Kverneland DA</h4>
+                <p>Идеальный выбор для легких и средних почв без камней 3 - 5 корпусов</p>
+            </div>
+            <div class="card">
+                <img src="assets/fdrill.jpeg" alt="Kverneland F-DRILL">
+                <h4>Kverneland F-DRILL</h4>
+                <p>Фронтально установленный бункер Kverneland f-drill обеспечивает равномерное распределение веса по
+                    всей компоновке машины, обеспечивая максимальный баланс.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">АНКЕРНЫЕ ЗЕРНОВЫЕ СЕЯЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/tsdrill.jpeg" alt="Kverneland TS-DRILL">
+                <h4>Kverneland TS-DRILL</h4>
+                <p>Сеялка  выполняет культивацию и посев за один проход. Большой объем бункера 1700 л. Ширина
+                    захвата
+                    5,0 и 6,0 м.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ИНТЕГРИРОВАННЫЕ ПОСЕВНЫЕ КОМБИНАЦИИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/3001.jpeg" alt="U-DRILL 3001/4001">
+                <h4>U-DRILL 3001/4001</h4>
+                <p>Универсальная сеялка с жесткой рамой и с шириной захвата 3,0 и 4,0 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/3001plus.jpeg" alt="U-DRILL 3001+/4001+">
+                <h4>U-DRILL 3001+/4001+</h4>
+                <p>Комбинированная модель выполняет подготовку посевного ложа, выравнивание, уплотнение, посев и
+                    внесение удобрений за один проход.</p>
+            </div>
+            <div class="card">
+                <img src="assets/4001f.jpeg" alt="U-DRILL 4001F">
+                <h4>U-DRILL 4001F</h4>
+                <p>Комбинация для подготовки посевного ложа, выравнивания, уплотнения и посева за один проход. C
+                    шириной
+                    захвата 4,0 м и 6,0 м.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/4001fplus.jpeg" alt="U-DRILL PLUS 4001F">
+                <h4>U-DRILL PLUS 4001F</h4>
+                <p>"PLUS" означает дополнительную функцию версии "семена  и удобрения", позволяющую одновременно
+                    вносить
+                    семена  и удобрения или, наоборот, два разных сорта семян.</p>
+            </div>
+            <div class="card">
+                <img src="assets/6001.jpeg" alt="U-DRILL 6001">
+                <h4>U-DRILL 6001</h4>
+                <p>Сеялка с шириной захвата 6,0 м, предназначенная для подготовки почвы, выравнивания, уплотнения и
+                    посева за один проход.</p>
+            </div>
+            <div class="card">
+                <img src="assets/6001plus.jpeg" alt="U-DRILL PLUS 6001">
+                <h4>U-DRILL PLUS 6001</h4>
+                <p>"PLUS" означает дополнительную функцию версии "семена  и удобрения", позволяющую одновременно
+                    вносить
+                    семена  и удобрения или, наоборот, два разных сорта семян.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">МЕХАНИЧЕСКИЕ СЕЯЛКИ ТОЧНОГО ВЫСЕВА</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/rigid.jpeg" alt="MONOPILL RIGID">
+                <h4>MONOPILL RIGID</h4>
+                <p>Сеялка точного высева для свеклы, рапса и цикория. Нескладываемые рамы орудия предлагаются с
+                    рабочей
+                    шириной 6 м, 9 м и 12 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/monopill6m.jpeg" alt="MONOPILL 6M PH">
+                <h4>MONOPILL 6M PH</h4>
+                <p>Складная механическая сеялка для свеклы, рапса и цикория, 6,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/monopill9m.jpeg" alt="MONOPILL 9M PH">
+                <h4>MONOPILL 9M PH</h4>
+                <p>Складная механическая сеялка для свеклы, рапса и цикория, 9,0 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ПНЕВМАТИЧЕСКИЕ СЕЯЛКИ ТОЧНОГО ВЫСЕВА</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/optimar.jpeg" alt="OPTIMA R">
+                <h4>OPTIMA R</h4>
+                <p>Пневматическая сеялка с нескладываемой рамой для экономически эффективного точного посева. C
+                    рабочей
+                    шириной от 3 до 6 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/optimarsx.jpeg" alt="OPTIMA R (SX)">
+                <h4>OPTIMA R (SX)</h4>
+                <p>Пневматическая сеялка с жесткой рамой, с высокоскоростными высевающими аппаратами SX для
+                    экономически
+                    эффективного точного посева</p>
+            </div>
+            <div class="card">
+                <img src="assets/optimars.jpeg" alt="OPTIMA RS">
+                <h4>OPTIMA RS</h4>
+                <p>Жесткая и прочная пневматическая высокоточная сеялка для высокой производительности и отдачи.
+                    С рабочей шириной от 6,1 м до 9,3 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/optimarssx.jpeg" alt="OPTIMA RS (SX)">
+                <h4>OPTIMA RS (SX)</h4>
+                <p>Пневматическая высокоточная сеялка со скоростными высевающими аппаратами.
+                    С рабочей шириной от 6,1 м до 9,3 м
+                </p>
+            </div>
+            <div class="card">
+                <img src="assets/optimav.jpeg" alt="OPTIMA V">
+                <h4>OPTIMA V</h4>
+                <p>Максимальная гибкость с гидравлической телескопической рамой</p>
+            </div>
+            <div class="card">
+                <img src="assets/optimavsx.jpeg" alt="OPTIMA V (SX)">
+                <h4>OPTIMA V (SX)</h4>
+                <p>Максимальная гибкость с гидравлической телескопической рамой</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/optimaf.jpeg" alt="OPTIMA F">
+                <h4>OPTIMA F</h4>
+                <p>Сеялка точного высева с гидравлически складываемой рамой для большей производительности.
+                    С рабочей шириной 6 м.
+                </p>
+            </div>
+            <div class="card">
+                <img src="assets/optimafsx.jpeg" alt="OPTIMA F (SX)">
+                <h4>OPTIMA F (SX)</h4>
+                <p>Пневматическая сеялка точного высева с параллельно-гидравлически складываемой рамой.
+                    С рабочей шириной 6 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/tfprofi.jpeg" alt="OPTIMA TFPROFI">
+                <h4>OPTIMA TFPROFI</h4>
+                <p>оснащена прицепной гидравлической складной рамой с рабочей шириной 6 м, представляя собой
+                    идеальное
+                    сочетание максимально точной укладки семян, высокой производительности и сниженной мощности
+                    трактора
+                </p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/tfprofisx.jpeg" alt="OPTIMA TFPROFI (SX)">
+                <h4>OPTIMA TFPROFI (SX)</h4>
+                <p>оснащена прицепной гидравлической складной рамой с рабочей шириной 6 м, представляя собой
+                    идеальное
+                    сочетание максимально точной укладки семян, высокой производительности и сниженной мощности
+                    тракторая
+                </p>
+            </div>
+            <div class="card">
+                <img src="assets/tfmaxi.jpeg" alt="OPTIMA TFMAXI">
+                <h4>OPTIMA TFMAXI</h4>
+                <p>большая прицепная модель с шириной захвата 12 м. Она предлагает уникальную производительность -
+                    до
+                    100 га за один день, что снижает затраты на трактор и водителя.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ОВОЩНЫЕ СЕЯЛКИ ТОЧНОГО ВЫСЕВА</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/nova.jpeg" alt="MINIAIR NOVA">
+                <h4>MINIAIR NOVA</h4>
+                <p>Пневматический овощная сеялка с рабочей шириной от 2,5 до 6,5 м.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ПРОЧИЕ ЗЕРНОВЫЕ СЕЯЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/adrill.jpeg" alt="KVERNELAND A-DRILL">
+                <h4>KVERNELAND A-DRILL</h4>
+                <p>Пневматическая сеялка, устанавливаемая на стерневые культиваторы или короткие дисковые бороны,
+                    для
+                    эффективного внесения покровных культур при обработке стерни.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОСИЛКИ -->
+    <section class="catalog">
+        <h2 class="section-title" id="kosilki">КОСИЛКИ</h2>
+
+        <h3 class="sub-title">ПРОСТЫЕ КОСИЛКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/2300.jpeg" alt="Kverneland 2300">
+                <h4>Kverneland 2300</h4>
+                <p>Задненавесные косилки для легкого, бережного кошения.
+                    С шириной захвата 1,66-2,40 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/2500.jpeg" alt="Kverneland 2500">
+                <h4>Kverneland 2500</h4>
+                <p>Дисковые косилки с центральным креплением и гидравлической подвеской.
+                    C шириной захвата 3,18 - 3,92 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/2600.jpeg" alt="Kverneland 2600">
+                <h4>Kverneland 2600</h4>
+                <p>Боковые навесные дисковые косилки с рабочим углом до 35°.
+                    C шириной захвата 2,81 - 3,16 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/2800.jpeg" alt="Kverneland 2800">
+                <h4>Kverneland 2800</h4>
+                <p>Задненавесные дисковые косилки с вертикальным транспортным положением.
+                    С шириной захвата 2,18-3,92 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/5087.jpeg" alt="Kverneland 5087-5095">
+                <h4>Kverneland 5087-5095</h4>
+                <p>Эффективные и легкие  косилки-бабочки.
+                    C шириной захвата 8,70-9,50 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/2800f.jpeg" alt="Kverneland 2800f">
+                <h4>Kverneland 2800f</h4>
+                <p>Фронтальные навесные дисковые косилки.
+                    C шириной захвата 2,18-3,16 м.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/2800fs.jpeg" alt="Kverneland 2800fs">
+                <h4>Kverneland 2800fs</h4>
+                <p>Фронтальная дисковая косилка с активным приводом валкообразователя.
+                    С шириной захвата 3,2 м.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">КОСИЛКИ С КОНДИЦИОНЕРОМ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/3200.jpeg" alt="Kverneland 3200">
+                <h4>Kverneland 3200</h4>
+                <p>Навесная косилка-плющилка с нейлоновым, вальцевым или полукачающимся плющильным устройством.
+                    С шириной захвата 2,40-3,16 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/50872.jpeg" alt="Kverneland 5087">
+                <h4>Kverneland 5087</h4>
+                <p>Комбинация из трех косилок с полуповоротными металлическими пальцами или нейлоновым пальцами.
+                    C шириной захвата 8,75 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/3600f.jpeg" alt="Kverneland 3600f">
+                <h4>Kverneland 3600f</h4>
+                <p>Фронтальные навесные косилки-плющилки с системой ActiveLift.
+                    C шириной захвата 2,81-3,60 м.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/3300.jpeg" alt="Kverneland 3300">
+                <h4>Kverneland 3300</h4>
+                <p>Инновационные косилки-плющилки с подвеской QuattroLink.
+                    С шириной захвата 3,16-3,60 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/5300.jpeg" alt="Kverneland 5300">
+                <h4>Kverneland 5300</h4>
+                <p>Комбинация из трех косилок с подвеской QuattroLink, плющилкой SemiSwing или роликовой плющилкой,
+                    двойной регулируемой плющильной пластиной и опциональным ремнем BX.
+                    C шириной захвата 8,7-9,5 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/53100.jpeg" alt="Kverneland 53100">
+                <h4>Kverneland 53100</h4>
+                <p>Тройная комбинация косилок с подвеской QuattroLink, плющилкой SemiSwing или вальцами,
+                    гидравлической
+                    регулировкой ширины захвата и перекрытия и опциональным транспортером BX.
+                    C шириной захвата 10,20 м.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/3300f.jpeg" alt="Kverneland 3300f">
+                <h4>Kverneland 3300f</h4>
+                <p>Фронтальные навесные косилки-плющилки с подвеской ProLink.
+                    С шириной захвата 3,16-3,60 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/4300.jpeg" alt="Kverneland 4300">
+                <h4>Kverneland 4300</h4>
+                <p>Прицепная косилка-плющилка с широкими возможностями применения.
+                    C шириной захвата 2,18-4,7 м.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОЧВООБРАБАТЫВАЮЩАЯ ТЕХНИКА -->
+    <section class="catalog">
+        <h2 class="section-title" id="pochva">ПОЧВООБРАБАТЫВАЮЩАЯ ТЕХНИКА</h2>
+        <h3 class="sub-title">ГЛУБОКОРЫХЛИТЕЛИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/cli.jpeg" alt="Kverneland CLI">
+                <h4>Kverneland CLI</h4>
+                <p>Коротконавесной однобалочный глубокорыхлитель.
+                    Гарантирует работу без забивания на глубине от 15 до 40 см.</p>
+            </div>
+            <div class="card">
+                <img src="assets/clg2.jpeg" alt="Kverneland CLG II">
+                <h4>Kverneland CLG II</h4>
+                <p>Разрыхление грунта в сложных условиях.
+                    Прочные зубья, гибкая настройка. 2 - 13 зубьев.</p>
+            </div>
+            <div class="card">
+                <img src="assets/clg3.jpeg" alt="Kverneland CLG III">
+                <h4>Kverneland CLG III</h4>
+                <p>Разрыхление почвы в сложных условиях. Стойки  для эффекта крошения, гибкая настройка. 3 - 19 зубьев.
+                </p>
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/dtx.jpeg" alt="Kverneland DTX">
+                <h4>Kverneland DTX</h4>
+                <p>Комбинированый глубокорыхлитель для обработки стерни и рыхления почвы за один проход.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ДИСКОВЫЕ БОРОНЫ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/01.jpeg" alt="Qualidisc Farmer_01">
+                <h4>Qualidisc Farmer_01</h4>
+                <p>Мелкая и глубокая культивация, обработка стерни, подготовка семенного ложа или посев покровных
+                    культур.</p>
+            </div>
+            <div class="card">
+                <img src="assets/01f.jpeg" alt="Qualidisc Farmer_01F">
+                <h4>Qualidisc Farmer_01F</h4>
+                <p>Складная дисковая борона Farmer с рабочей шириной от 4,0 до 6,0 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/01t.jpeg" alt="Qualidisc Farmer_01T">
+                <h4>Qualidisc Farmer_01T</h4>
+                <p>Прицепная компактная дисковая борона , предлагается с рабочей шириной от 4,0 до 6,0 м для мощности до
+                    300 л.с.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/pro01.jpeg" alt="Qualidisc Pro_01">
+                <h4>Qualidisc Pro_01</h4>
+                <p>Компактная дисковая борона предлагается с шириной захвата от 2 до 4 м.
+                    Предназначена как для поверхностной, так и для глубокой обработки почвы на глубину до 15 см.
+                </p>
+            </div>
+            <div class="card">
+                <img src="assets/pro01f.jpeg" alt="Qualidisc Pro_01F">
+                <h4>Qualidisc Pro_01F</h4>
+                <p>Компактная дисковая борона предлагается с шириной захвата от 4 до 6 м.
+                    Предназначена как для поверхностной, так и для глубокой обработки почвы до 15 см.</p>
+            </div>
+            <div class="card">
+                <img src="assets/pro01t.jpeg" alt="Qualidisc Pro_01T">
+                <h4>Qualidisc Pro_01T</h4>
+                <p>Компактная дисковая борона, предлагается с шириной захвата от 4,0 до 7,0 м для тракторов мощностью до
+                    400 л.с.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/21000t.jpeg" alt="Qualidisc 21000T">
+                <h4>Qualidisc 21000T</h4>
+                <p>Прицепная компактная дисковая борона с большой шириной захвата 12,25 м.
+                    Диапазон операций универсален: мелкая и глубокая культивация (от 3 до 15 см), а также подготовка
+                    посевного ложа после вспашки.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">УНИВЕРСАЛЬНЫЕ КУЛЬТИВАТОРЫ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/turbo.jpeg" alt="Kverneland Turbo">
+                <h4>Kverneland Turbo</h4>
+                <p>Жесткий универсальный культиватор с рабочей шириной 3,0 м и 3,5 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/turbof.jpeg" alt="Kverneland Turbo F">
+                <h4>Kverneland Turbo F</h4>
+                <p>Складной универсальный культиватор с рабочей шириной от 4,0 до 6,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/turbo1100.jpeg" alt="Kverneland Turbo 1100 T">
+                <h4>Kverneland Turbo 1100T</h4>
+                <p>Прицепной универсальный культиватор с рабочей шириной 6,5 м и 8,0 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">СТЕРНЕВЫЕ КУЛЬТИВАТОРЫ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/enduro.jpeg" alt="Enduro / Enduro Pro">
+                <h4>Enduro / Enduro Pro</h4>
+                <p>Жесткий стерневой культиватор с шириной захвата 3,0 м, 3,5 м и 4,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/endurof.jpeg" alt="Enduro F / Enduro Pro F">
+                <h4>Enduro F / Enduro Pro F</h4>
+                <p>Складной стерневой культиватор с рабочей шириной 4,0 м и 5,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/endurot.jpeg" alt="Enduro T / Enduro Pro T">
+                <h4>Enduro T / Enduro Pro T</h4>
+                <p>Прицепной стерневой культиватор с шириной захвата 4,0 м и 5,0 м</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/ctc.jpeg" alt="Kverneland CTC">
+                <h4>Kverneland CTC</h4>
+                <p>Обработка стерни, особенно в рамках технологиии безотвальной или минимальной обработки почвы,
+                    сохраняет структуру и влажность почвы и ограничивает эрозию.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">SPRIP TILL</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/kultistrip.jpeg" alt="Kverneland Kultistrip">
+                <h4>Kverneland Kultistrip</h4>
+                <p>Не складывающаяся рама шириной
+                    3,0 м, 4,5 м и 6,0 м</p>
+            </div>
+            <div class="card">
+                <img src="assets/kultistripf.jpeg" alt="Kverneland Kultistrip F">
+                <h4>Kverneland Kultistrip F</h4>
+                <p>Складная рама с рабочей шириной
+                    4,5 м и 6,0 м</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">ПРЕДПОСЕВНЫЕ КУЛЬТИВАТОРЫ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/tld.jpeg" alt="Kverneland TLD">
+                <h4>Kverneland TLD</h4>
+                <p>Kverneland TLD создают идеальное посевное ложе на всех типах почв.
+                    Ширина захвата от 5,1 м до 8,1 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/tlg.jpeg" alt="Kverneland TLG">
+                <h4>Kverneland TLG</h4>
+                <p>TLG - это сверхмощный культиватор точного высева, предназначенный для оптимальной подготовки
+                    семенного ложа, особенно для сахарной свеклы, кукурузы, картофеля и овощей.
+                    Доступная ширина захвата: 4,0, 5,0 и 6,0 м.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">АКТИВНЫЕ БОРОНЫ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/mseries.jpeg" alt="M series">
+                <h4>M series</h4>
+                <p>Борона с жесткой рамой, ширина захвата от 2,5 до 3,0 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/hseries.jpeg" alt="H series">
+                <h4>H series</h4>
+                <p>Борона с жесткой рамой, ширина захвата от 3,0 до 4 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/sseries.jpeg" alt="S series">
+                <h4>S series</h4>
+                <p>Борона с жесткой рамой, ширина захвата от 3,0 до 4,5 м.</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/rotago.jpeg" alt="Rotago F">
+                <h4>Rotago F</h4>
+                <p>Складная борона, ширина захвата от 4,0 до 6,0 м, мощность до 360 л.с.</p>
+            </div>
+        </div>
+
+        <h3 class="sub-title">КАТКИ</h3>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/actiroll.jpeg" alt="Kverneland Actiroll">
+                <h4>Kverneland Actiroll</h4>
+                <p>Прицепные катки Kverneland Actiroll обеспечивают уплотнение и выравнивание почвы.
+                    Рабочая ширина от 4,50 до 8,30 м.</p>
+            </div>
+            <div class="card">
+                <img src="assets/actirollhd.jpeg" alt="Kverneland Actiroll HD">
+                <h4>Kverneland Actiroll HD</h4>
+                <p>Сверхмощный прицепной каток от 10,30 до 24,3 м</p>
+            </div>
+        </div>
+
+    </section>
+    <div class="footer">
+        <span>© 2025 ООО "АгроСервис"</span>
+    </div>
+
+    <!-- СКРИПТ НА КНОПКУ ВВЕРХ -->
+    <script>
+        let buttonup = document.getElementById("myBtn");
+
+        window.onscroll = function () {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                buttonup.style.display = "block";
+            } else {
+                buttonup.style.display = "none";
+            }
+        };
+
+        function topFunction() {
+            document.body.scrollTop = 0; // Для Safari
+            document.documentElement.scrollTop = 0; // Для Chrome, Firefox, IE и Opera
+        }
+    </script>
+</body>
+
+</html>
